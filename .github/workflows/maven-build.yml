@@ -8,6 +8,9 @@
 
 name: Maven Build
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [ 'dev-1.x' ]
@@ -36,15 +39,13 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
 
-      - name: Make mvnw executable
-        run: chmod +x mvnw
-
       - name: Build with Maven
         run: ./mvnw
           --batch-mode
           --update-snapshots
           --file pom.xml
           -Drevision=0.0.1-SNAPSHOT
+          -Dsurefire.useSystemClassLoader=false
           test
           --activate-profiles test,coverage,testcontainers,${{ matrix.maven-profile-spring-cloud }}
 
