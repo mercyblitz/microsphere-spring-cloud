@@ -14,9 +14,9 @@ import static io.microsphere.reflect.FieldUtils.getFieldValue;
 public class ErrorDecoderComponentAssert extends FeignComponentAssert<ErrorDecoder> {
 
     @Override
-    protected ErrorDecoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        Object asyncResponseHandler = getFieldValue(methodHandler, "asyncResponseHandler");
-        DecoratedErrorDecoder errorDecoder = getFieldValue(asyncResponseHandler, "errorDecoder");
+    protected ErrorDecoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) {
+        Object asyncResponseHandler = getFieldValue(true, methodHandler, "asyncResponseHandler");
+        DecoratedErrorDecoder errorDecoder = getFieldValue(true, asyncResponseHandler, "errorDecoder");
         return errorDecoder.delegate();
     }
 }

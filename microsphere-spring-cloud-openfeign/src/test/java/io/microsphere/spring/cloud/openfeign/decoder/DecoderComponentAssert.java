@@ -14,8 +14,8 @@ import static io.microsphere.reflect.FieldUtils.getFieldValue;
 public class DecoderComponentAssert extends FeignComponentAssert<Decoder> {
 
     @Override
-    protected Decoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        DecoratedDecoder decoder = getFieldValue(methodHandler, "decoder");
+    protected Decoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) {
+        DecoratedDecoder decoder = getFieldValue(true, methodHandler, "decoder");
         return decoder.delegate();
     }
 }

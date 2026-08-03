@@ -5,8 +5,6 @@ import feign.codec.Encoder;
 import io.microsphere.spring.cloud.openfeign.FeignComponentAssert;
 import io.microsphere.spring.cloud.openfeign.components.DecoratedEncoder;
 
-import static io.microsphere.reflect.FieldUtils.getFieldValue;
-
 /**
  * @author <a href="mailto:maimengzzz@gmail.com">韩超</a>
  * @since 1.0.0
@@ -20,8 +18,8 @@ public class EncoderComponentAssert extends FeignComponentAssert<Encoder> {
 
     @Override
     protected Encoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        Object buildTemplateFromArgsValue = getFieldValue(methodHandler, "buildTemplateFromArgs");
-        DecoratedEncoder encoder = getFieldValue(buildTemplateFromArgsValue, "encoder");
+        Object buildTemplateFromArgsValue = getFieldValue(true, methodHandler, "buildTemplateFromArgs");
+        DecoratedEncoder encoder = getFieldValue(true, buildTemplateFromArgsValue, "encoder");
         return encoder.delegate();
     }
 }

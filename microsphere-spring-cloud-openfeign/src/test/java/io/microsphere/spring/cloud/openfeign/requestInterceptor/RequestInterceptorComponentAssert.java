@@ -16,8 +16,8 @@ import static io.microsphere.reflect.FieldUtils.getFieldValue;
 public class RequestInterceptorComponentAssert extends FeignComponentAssert<RequestInterceptor> {
 
     @Override
-    protected CompositedRequestInterceptor loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        List<RequestInterceptor> retryer = getFieldValue(methodHandler, "requestInterceptors");
+    protected CompositedRequestInterceptor loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) {
+        List<RequestInterceptor> retryer = getFieldValue(true, methodHandler, "requestInterceptors");
         for (RequestInterceptor interceptor : retryer) {
             if (interceptor instanceof CompositedRequestInterceptor) {
                 return (CompositedRequestInterceptor) interceptor;

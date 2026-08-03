@@ -14,9 +14,9 @@ import static io.microsphere.reflect.FieldUtils.getFieldValue;
 public class QueryMapEncoderComponentAssert extends FeignComponentAssert<QueryMapEncoder> {
 
     @Override
-    protected QueryMapEncoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        Object buildTemplateFromArgsValue = getFieldValue(methodHandler, "buildTemplateFromArgs");
-        DecoratedQueryMapEncoder encoder = getFieldValue(buildTemplateFromArgsValue, "queryMapEncoder");
+    protected QueryMapEncoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) {
+        Object buildTemplateFromArgsValue = getFieldValue(true, methodHandler, "buildTemplateFromArgs");
+        DecoratedQueryMapEncoder encoder = getFieldValue(true, buildTemplateFromArgsValue, "queryMapEncoder");
         return encoder.delegate();
     }
 }
