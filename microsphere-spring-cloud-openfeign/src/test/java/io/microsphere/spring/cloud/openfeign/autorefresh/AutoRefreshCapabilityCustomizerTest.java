@@ -60,6 +60,6 @@ class AutoRefreshCapabilityCustomizerTest {
 
     private Specification newSpecification(Class<?>[] configurationClasses) {
         Constructor<?> constructor = findConstructor(FEIGN_CLIENT_SPECIFICATION_CLASS, String.class, Class[].class);
-        return (Specification) newInstance(constructor, "test", configurationClasses);
+        return (Specification) newInstance(true, constructor, "test", configurationClasses);
     }
 }

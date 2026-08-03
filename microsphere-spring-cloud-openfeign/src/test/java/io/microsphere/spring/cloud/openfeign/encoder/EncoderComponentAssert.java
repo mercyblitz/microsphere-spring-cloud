@@ -20,8 +20,8 @@ public class EncoderComponentAssert extends FeignComponentAssert<Encoder> {
 
     @Override
     protected Encoder loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        Object buildTemplateFromArgsValue = getFieldValue(methodHandler, "buildTemplateFromArgs");
-        DecoratedEncoder encoder = getFieldValue(buildTemplateFromArgsValue, "encoder");
+        Object buildTemplateFromArgsValue = getFieldValue(true, methodHandler, "buildTemplateFromArgs");
+        DecoratedEncoder encoder = getFieldValue(true, buildTemplateFromArgsValue, "encoder");
         return encoder.delegate();
     }
 }
