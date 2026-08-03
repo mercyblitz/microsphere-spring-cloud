@@ -332,4 +332,24 @@ For detailed changes, refer to the commits above.
 
 **Full Changelog:** [0.1.23...0.1.24](#)
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.23...0.1.24
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.23...0.1.24## v0.1.25
+
+_Release notes generation failed. Raw commits since 0.1.24:_
+
+```
+0f2fffd Update version numbers in README.md
+9db66f1 Merge pull request #146 from mercyblitz/dev-1.x
+29a635c Limit CI Java matrix to 8 and 11
+6beb8de Force Feign spec configuration method invocation
+6824292 Fix Feign spec creation in auto-refresh test
+258963f Add FieldUtils import in encoder assert
+bde372e Use safe reflective invoke for service methods
+9e865f1 Use force-access reflection in Feign test asserts
+c3db202 Bump microsphere-spring-boot to 0.1.33
+c74252e Bump microsphere-build to 0.3.11
+112a845 Update pom.xml
+bf4188b chore: merge release-1.x into dev-1.x [skip ci]
+f106e9b chore: bump version to next patch after publishing 0.1.24
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.24...0.1.25
