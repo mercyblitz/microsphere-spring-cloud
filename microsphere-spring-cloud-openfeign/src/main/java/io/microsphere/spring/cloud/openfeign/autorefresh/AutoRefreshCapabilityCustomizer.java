@@ -69,7 +69,7 @@ public class AutoRefreshCapabilityCustomizer implements SpecificationCustomizer 
 
         BeanMetadata beanMetadata = getBeanMetadata(FEIGN_CLIENT_SPECIFICATION_CLASS);
         Method setConfigurationMethod = findWriteMethod(beanMetadata, "configuration");
-        invokeMethod(specification, setConfigurationMethod, new Object[]{newConfigurationClasses});
+        invokeMethod(true, specification, setConfigurationMethod, new Object[]{newConfigurationClasses});
 
         if (logger.isTraceEnabled()) {
             logger.trace("The Configuration classes: before - {} , after - {}", arrayToString(originConfigurationClasses),

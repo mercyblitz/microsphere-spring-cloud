@@ -14,8 +14,8 @@ import static io.microsphere.reflect.FieldUtils.getFieldValue;
 public class RetryerComponentAssert extends FeignComponentAssert<Retryer> {
 
     @Override
-    protected Retryer loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) throws Exception {
-        DecoratedRetryer retryer = getFieldValue(methodHandler, "retryer");
+    protected Retryer loadCurrentComponent(InvocationHandlerFactory.MethodHandler methodHandler) {
+        DecoratedRetryer retryer = getFieldValue(true, methodHandler, "retryer");
         return retryer.delegate();
     }
 }
