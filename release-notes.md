@@ -352,4 +352,19 @@ bf4188b chore: merge release-1.x into dev-1.x [skip ci]
 f106e9b chore: bump version to next patch after publishing 0.1.24
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.24...0.1.25
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.24...0.1.25## v0.1.26
+
+_Release notes generation failed. Raw commits since 0.1.25:_
+
+```
+1495466 Update README.md
+28a9721 Merge pull request #151 from mercyblitz/dev-1.x
+5c02fad Bump microsphere-spring-boot to 0.1.34
+949e7c2 Bump microsphere-build to 0.3.14
+02465be Bump microsphere-build parent to 0.3.12
+b46f6fe Create sync-branches-from-upstream.yml
+5178ad5 chore: merge release-1.x into dev-1.x [skip ci]
+fa9ff6d chore: bump version to next patch after publishing 0.1.25
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-spring-cloud/compare/0.1.25...0.1.26
