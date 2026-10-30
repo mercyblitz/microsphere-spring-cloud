@@ -23,8 +23,14 @@ import static io.microsphere.spring.cloud.commons.constants.CommonsPropertyConst
  */
 public abstract class AbstractServiceRegistrationEndpoint implements SmartInitializingSingleton, ApplicationListener<WebServerInitializedEvent> {
 
+    /**
+     * The {@link Logger} for the subclass instances
+     */
     protected final Logger logger = getLogger(getClass());
 
+    /**
+     * The name of the Spring application, resolved from the "spring.application.name" property
+     */
     @Value(SPRING_APPLICATION_NAME_PLACEHOLDER)
     protected String applicationName;
 
@@ -37,14 +43,30 @@ public abstract class AbstractServiceRegistrationEndpoint implements SmartInitia
     @Autowired
     private ObjectProvider<AbstractAutoServiceRegistration> autoServiceRegistrationProvider;
 
+    /**
+     * The {@link Registration} bean resolved in {@link #afterSingletonsInstantiated()}
+     */
     protected Registration registration;
 
+    /**
+     * The {@link ServiceRegistry} bean resolved in {@link #afterSingletonsInstantiated()}
+     */
     protected ServiceRegistry serviceRegistry;
 
+    /**
+     * The {@link AbstractAutoServiceRegistration} bean resolved in {@link #afterSingletonsInstantiated()}
+     */
     protected AbstractAutoServiceRegistration serviceRegistration;
 
+    /**
+     * The port of the initialized web server, captured in {@link #onApplicationEvent(WebServerInitializedEvent)}
+     */
     protected int port;
 
+    /**
+     * The running state of the {@link AbstractAutoServiceRegistration}, captured in
+     * {@link #onApplicationEvent(WebServerInitializedEvent)}
+     */
     protected volatile boolean running;
 
     /**

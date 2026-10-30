@@ -50,6 +50,15 @@ import static io.microsphere.spring.cloud.client.discovery.constants.DiscoveryCl
 })
 public class ReactiveDiscoveryClientAutoConfiguration {
 
+    /**
+     * The nested {@link Configuration} class to register the {@link ReactiveDiscoveryClientAdapter}
+     * bean that adapts the {@link ReactiveDiscoveryClient} to the blocking
+     * {@link org.springframework.cloud.client.discovery.DiscoveryClient}, activated when the
+     * blocking discovery is enabled.
+     *
+     * @see ReactiveDiscoveryClientAdapter
+     * @see ReactiveDiscoveryClientAutoConfiguration
+     */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnBlockingDiscoveryEnabled
     public static class BlockingConfiguration {

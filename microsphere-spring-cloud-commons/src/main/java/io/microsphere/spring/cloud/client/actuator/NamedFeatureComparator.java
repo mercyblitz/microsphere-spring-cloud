@@ -31,8 +31,26 @@ import java.util.Comparator;
  */
 public class NamedFeatureComparator implements Comparator<NamedFeature> {
 
+    /**
+     * The singleton instance of {@link NamedFeatureComparator}
+     */
     public static final NamedFeatureComparator INSTANCE = new NamedFeatureComparator();
 
+    /**
+     * Compares two {@link NamedFeature} instances by name first, then by the class name of
+     * their types if the names are equal.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * NamedFeatureComparator comparator = NamedFeatureComparator.INSTANCE;
+     * int result = comparator.compare(feature1, feature2);
+     * }</pre>
+     *
+     * @param namedFeature1 the first {@link NamedFeature} to compare
+     * @param namedFeature2 the second {@link NamedFeature} to compare
+     * @return a negative integer, zero, or a positive integer as the first argument is less than,
+     * equal to, or greater than the second
+     */
     @Override
     public int compare(NamedFeature namedFeature1, NamedFeature namedFeature2) {
         int c = namedFeature1.getName().compareTo(namedFeature2.getName());

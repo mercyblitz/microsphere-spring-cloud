@@ -42,8 +42,15 @@ import static io.microsphere.spring.cloud.client.service.util.ServiceInstanceUti
  */
 public abstract class WebServiceRegistryAutoConfiguration implements ApplicationListener<WebEndpointMappingsReadyEvent> {
 
+    /**
+     * The {@link Logger} for the subclass instances
+     */
     protected final Logger logger = getLogger(getClass());
 
+    /**
+     * The base path of the actuator web endpoints, resolved from the property
+     * "management.endpoints.web.base-path" (default : "/actuator")
+     */
     @Value("${management.endpoints.web.base-path:/actuator}")
     protected String actuatorBasePath;
 

@@ -44,6 +44,9 @@ import static io.microsphere.spring.cloud.client.service.util.ServiceInstanceUti
  */
 public class SimpleServiceRegistry implements ServiceRegistry<DefaultRegistration> {
 
+    /**
+     * The metadata key of the {@link DefaultRegistration}'s status : "_status_"
+     */
     public static final String STATUS_KEY = "_status_";
 
     private final Map<String, List<DefaultServiceInstance>> instancesMap;

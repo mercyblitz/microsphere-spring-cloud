@@ -107,16 +107,52 @@ public class ConfigurationPropertyHasFeaturesAutoConfiguration implements BeanFa
     @Autowired
     private FeaturesProperties featuresProperties;
 
+    /**
+     * {@inheritDoc}
+     * <p>Stores the {@link ClassLoader} that is used to resolve the feature classes by name.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Invoked automatically by the Spring container during bean initialization
+     * }</pre>
+     *
+     * @param classLoader the {@link ClassLoader} to resolve the feature classes
+     */
     @Override
     public void setBeanClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Stores the {@link BeanFactory} as a {@link DefaultListableBeanFactory} that is used
+     * to register the {@link HasFeatures} beans.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Invoked automatically by the Spring container during bean initialization
+     * }</pre>
+     *
+     * @param beanFactory the {@link BeanFactory} to register the {@link HasFeatures} beans
+     * @throws BeansException if the {@link BeanFactory} can't be adapted to {@link DefaultListableBeanFactory}
+     */
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = asDefaultListableBeanFactory(beanFactory);
     }
 
+    /**
+     * Reads the {@link FeaturesProperties} and registers a {@link HasFeatures} bean for each
+     * configured module under the bean name resolved by
+     * {@link FeaturesUtils#getHasFeaturesBeanName(String)}.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Invoked automatically after the properties have been bound:
+     * // microsphere.spring.cloud.features.abstract.jdbc=javax.sql.DataSource
+     * // registers a HasFeatures bean named "jdbc.features"
+     * }</pre>
+     */
     @Override
     public void afterPropertiesSet() {
         FeaturesProperties featuresProperties = this.featuresProperties;
@@ -240,6 +276,17 @@ public class ConfigurationPropertyHasFeaturesAutoConfiguration implements BeanFa
             return new HasFeatures(ofList(this.abstractFeatures), ofList(this.namedFeatures));
         }
 
+        /**
+         * {@inheritDoc}
+         * <p>Formats the module name along with its abstract and named features.
+         *
+         * <h3>Example Usage</h3>
+         * <pre>{@code
+         * String description = moduleFeatures.toString();
+         * }</pre>
+         *
+         * @return a formatted string describing the module's features
+         */
         @Override
         public String toString() {
             return format("The module[name : '{}'] has abstract features : {} and named features : {}",

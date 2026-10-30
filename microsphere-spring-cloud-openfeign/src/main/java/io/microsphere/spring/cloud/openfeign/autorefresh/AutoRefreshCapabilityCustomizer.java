@@ -52,6 +52,20 @@ public class AutoRefreshCapabilityCustomizer implements SpecificationCustomizer 
      */
     public static final Class<?> AUTO_REFRESH_CAPABILITY_CLASS = AutoRefreshCapability.class;
 
+    /**
+     * Customizes the given {@link Specification} by injecting the {@link AutoRefreshCapability}
+     * into its configuration classes, only if the {@link Specification} is the default
+     * {@code FeignClientSpecification} (its bean name starts with "default.").
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Invoked by the SpecificationBeanPostProcessor for each Specification bean:
+     * customizer.customize(feignClientSpecification, "default.com.example.FeignClient");
+     * }</pre>
+     *
+     * @param specification the {@link Specification} to customize
+     * @param beanName      the bean name of the {@link Specification}
+     */
     @Override
     public void customize(Specification specification, String beanName) {
         if (isFeignClientSpecification(specification) && beanName.startsWith("default.")) {

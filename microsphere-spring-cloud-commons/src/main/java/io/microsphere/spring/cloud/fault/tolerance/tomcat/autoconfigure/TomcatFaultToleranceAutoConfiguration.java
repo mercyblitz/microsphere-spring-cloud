@@ -39,7 +39,13 @@ import static io.microsphere.spring.cloud.fault.tolerance.tomcat.autoconfigure.T
 import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type.SERVLET;
 
 /**
+ * The Auto-Configuration class for Tomcat's fault-tolerance that registers a
+ * {@link TomcatDynamicConfigurationListener} when the embedded web server is a
+ * {@link TomcatWebServer}, allowing the Tomcat connector configuration to be
+ * adjusted dynamically at runtime.
+ *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @see TomcatDynamicConfigurationListener
  * @since 1.0.0
  */
 @Configuration(proxyBeanMethods = false)
@@ -59,6 +65,9 @@ import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebA
 })
 public class TomcatFaultToleranceAutoConfiguration {
 
+    /**
+     * The property prefix of Tomcat's fault-tolerance : "microsphere.spring.cloud.fault-tolerance.tomcat"
+     */
     public static final String TOMCAT_PROPERTY_PREFIX = FAULT_TOLERANCE_PROPERTY_NAME_PREFIX + "tomcat";
 
     /**

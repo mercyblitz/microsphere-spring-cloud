@@ -16,12 +16,27 @@ import static io.microsphere.reflect.ConstructorUtils.findConstructor;
 import static org.springframework.beans.BeanUtils.instantiateClass;
 
 /**
+ * The abstract decorated class for the Feign components that delegates to the original component
+ * and supports the runtime refresh of the delegate when the {@link FeignClientProperties} changed.
+ *
+ * <h3>Example Usage</h3>
+ * <pre>{@code
+ * DecoratedRetryer decoratedRetryer = DecoratedFeignComponent.instantiate(
+ *     DecoratedRetryer.class, Retryer.class, contextId, feignContext, clientProperties, retryer);
+ * }</pre>
+ *
+ * @param <T> the type of the decorated Feign component
  * @author <a href="mailto:maimengzzz@gmail.com">韩超</a>
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @see Refreshable
+ * @see AutoRefreshCapability
  * @since 1.0.0
  */
 public abstract class DecoratedFeignComponent<T> implements Refreshable {
 
+    /**
+     * The {@link Logger} for the subclass instances
+     */
     protected final Logger logger = getLogger(getClass());
 
     private final FeignContext feignContext;
@@ -30,6 +45,10 @@ public abstract class DecoratedFeignComponent<T> implements Refreshable {
 
     private final FeignClientProperties clientProperties;
 
+    /**
+     * The delegate instance of the Feign component, may be {@code null} after {@link #refresh()}
+     * until the next call of {@link #delegate()}
+     */
     protected volatile T delegate;
 
     /**
@@ -167,6 +186,20 @@ public abstract class DecoratedFeignComponent<T> implements Refreshable {
         return this.clientProperties.getConfig().get(contextId);
     }
 
+    /**
+     * Resolves the configuration value by applying the given {@link Function} to the
+     * {@link #getDefaultConfiguration() default} {@link FeignClientConfiguration} first,
+     * then falling back to the {@link #getCurrentConfiguration() current} one.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * Class<Decoder> decoderClass = get(FeignClientConfiguration::getDecoder);
+     * }</pre>
+     *
+     * @param configurationFunction the {@link Function} to extract the value from the {@link FeignClientConfiguration}
+     * @param <T>                   the type of the resolved value
+     * @return the resolved value, or {@code null} if not found in both configurations
+     */
     protected <T> T get(Function<FeignClientConfiguration, T> configurationFunction) {
         FeignClientConfiguration config = getDefaultConfiguration();
         T value = null;
@@ -230,6 +263,26 @@ public abstract class DecoratedFeignComponent<T> implements Refreshable {
         return delegate().toString();
     }
 
+    /**
+     * Instantiates the given decorated Feign component class via its constructor accepting
+     * ({@code String}, {@link FeignContext}, {@link FeignClientProperties}, component instance).
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * DecoratedRetryer decoratedRetryer = DecoratedFeignComponent.instantiate(
+     *     DecoratedRetryer.class, Retryer.class, contextId, feignContext, clientProperties, retryer);
+     * }</pre>
+     *
+     * @param <W>              the decorated Feign component type
+     * @param <T>              the delegate Feign component type
+     * @param decoratedClass   the class of the decorated Feign component to instantiate
+     * @param componentClass   the class of the delegate Feign component
+     * @param contextId        the Feign client context identifier
+     * @param feignContext     the {@link FeignContext} for loading component instances
+     * @param clientProperties the {@link FeignClientProperties} containing configuration
+     * @param delegate         the original Feign component to decorate
+     * @return a new instance of the decorated Feign component
+     */
     public static <W extends DecoratedFeignComponent<T>, T> W instantiate(Class<W> decoratedClass, Class<T> componentClass,
                                                                           String contextId, FeignContext feignContext, FeignClientProperties clientProperties, T delegate) {
         Constructor<W> constructor = findConstructor(decoratedClass, String.class, FeignContext.class, FeignClientProperties.class, componentClass);

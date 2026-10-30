@@ -68,6 +68,20 @@ public class FeignClientAutoRefreshAutoConfiguration {
         return new FeignComponentRegistry(clientProperties.getDefaultConfig(), beanFactory);
     }
 
+    /**
+     * Creates the {@link AutoRefreshCapabilityCustomizer} bean that injects the
+     * {@link AutoRefreshCapability} into the default {@code FeignClientSpecification},
+     * enabling the auto-refresh for all Feign clients.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Auto-configured when @EnableFeignAutoRefresh is present:
+     * AutoRefreshCapabilityCustomizer customizer =
+     *     applicationContext.getBean(AutoRefreshCapabilityCustomizer.class);
+     * }</pre>
+     *
+     * @return a new {@link AutoRefreshCapabilityCustomizer} instance
+     */
     @Bean
     @ConditionalOnMissingBean
     public AutoRefreshCapabilityCustomizer autoRefreshCapabilityCustomizer() {

@@ -68,6 +68,14 @@ public class DiscoveryClientAutoConfiguration {
     )
     public static final String DISCOVERY_CLIENT_MODE_PROPERTY_NAME = DISCOVERY_CLIENT_PROPERTY_PREFIX + MODE_PROPERTY_NAME;
 
+    /**
+     * The nested {@link Configuration} class to register the {@link UnionDiscoveryClient} bean
+     * that aggregates all {@link DiscoveryClient} instances, activated when the property
+     * {@value #DISCOVERY_CLIENT_MODE_PROPERTY_NAME} is set to {@value #UNION_DISCOVERY_CLIENT_MODE}.
+     *
+     * @see UnionDiscoveryClient
+     * @see DiscoveryClientAutoConfiguration
+     */
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnProperty(name = DISCOVERY_CLIENT_MODE_PROPERTY_NAME, havingValue = UNION_DISCOVERY_CLIENT_MODE)
     public static class UnionConfiguration {

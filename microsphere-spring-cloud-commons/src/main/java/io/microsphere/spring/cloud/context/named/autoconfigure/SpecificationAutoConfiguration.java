@@ -44,6 +44,19 @@ import org.springframework.context.annotation.Configuration;
 })
 public class SpecificationAutoConfiguration {
 
+    /**
+     * Creates the {@link SpecificationBeanPostProcessor} bean that customizes each
+     * {@link Specification} bean with all available {@link SpecificationCustomizer} beans
+     * in the {@link org.springframework.beans.factory.BeanFactory}.
+     *
+     * <h3>Example Usage</h3>
+     * <pre>{@code
+     * // Auto-configured when a Specification bean is present, e.g. a FeignClientSpecification:
+     * SpecificationBeanPostProcessor processor = applicationContext.getBean(SpecificationBeanPostProcessor.class);
+     * }</pre>
+     *
+     * @return a new {@link SpecificationBeanPostProcessor} instance
+     */
     @Bean
     @ConditionalOnBean(value = Specification.class)
     @ConditionalOnMissingBean
